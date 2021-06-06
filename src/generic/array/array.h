@@ -42,4 +42,12 @@ static inline bool is_array_full(Array(void) arr)
         }                                                                                                              \
     }
 
+#define add_range_array(dist, src, range)                                                                              \
+    {                                                                                                                  \
+        for (size_t i = 0; i < range; ++i)                                                                             \
+        {                                                                                                              \
+            add_array(dist, src[i]);                                                                                   \
+        }                                                                                                              \
+    }
+
 #endif

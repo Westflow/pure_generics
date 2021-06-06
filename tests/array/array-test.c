@@ -31,3 +31,16 @@ CTEST(generic_array, add)
     arr = NULL;
     add_array(arr, 0);
 }
+
+CTEST(generic_array, add_range)
+{
+    Array(int) arr = init_array(int, 4);
+    int collection[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    add_range_array(arr, collection, sizeof(collection) / sizeof(int));
+    for (size_t i = 0; i < sizeof(collection) / sizeof(int); ++i)
+    {
+        ASSERT_EQUAL(collection[i], arr[i]);
+    }
+    ASSERT_EQUAL(16, get_array_capacity(arr));
+    free_array(arr);
+}
