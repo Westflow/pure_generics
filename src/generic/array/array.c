@@ -36,8 +36,9 @@ size_t get_array_capacity(Array(void) arr)
 
 void expand_array(void** blockptr, size_t cur_cap, size_t cap)
 {
-    size_t* tmp = realloc(&((size_t*)(*blockptr))[-2], cur_cap);
-    (*blockptr) = (void*)(&tmp[2]);
+    size_t* memblock = realloc(&((size_t*)(*blockptr))[ARRAY_CAP_P], cur_cap);
+    assert(memblock);
+    (*blockptr) = (void*)(&memblock[ARRAY_DATA_ST]);
     ((size_t*)(*blockptr))[-2] = cap;
 }
 

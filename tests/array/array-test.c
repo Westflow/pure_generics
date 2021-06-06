@@ -28,4 +28,6 @@ CTEST(generic_array, add)
     }
     ASSERT_EQUAL(128, get_array_capacity(arr));
     free_array(arr);
+    arr = NULL;
+    add_array(arr, 0);
 }

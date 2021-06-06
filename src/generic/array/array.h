@@ -23,20 +23,23 @@ static inline bool is_array_full(Array(void) arr)
 
 #define init_array(type, cap) (initialize_array(sizeof(type), cap))
 
-#define try_to_expand(source, cur_cap)                                                                                 \
-    expand_array(((void**)&source), (cur_cap * 2) * sizeof(*(source)) + (sizeof(size_t) * 2), cur_cap * 2)
+#define try_to_expand(arr, cur_cap)                                                                                    \
+    expand_array(((void**)&arr), (cur_cap * 2) * sizeof(*(arr)) + (sizeof(size_t) * 2), cur_cap * 2)
 
-#define add_array_item(source, item)                                                                                   \
-    source[get_array_length(source)] = (item);                                                                         \
-    ++((size_t*)(source))[-1]
+#define add_array_item(arr, item)                                                                                      \
+    arr[get_array_length(arr)] = (item);                                                                               \
+    ++((size_t*)(arr))[-1]
 
-#define add_array(source, item)                                                                                        \
+#define add_array(arr, item)                                                                                           \
     {                                                                                                                  \
-        if (is_array_full(source))                                                                                     \
+        if (arr)                                                                                                       \
         {                                                                                                              \
-            try_to_expand(source, get_array_capacity(source));                                                         \
+            if (is_array_full(arr))                                                                                    \
+            {                                                                                                          \
+                try_to_expand(arr, get_array_capacity(arr));                                                           \
+            }                                                                                                          \
+            add_array_item(arr, item);                                                                                 \
         }                                                                                                              \
-        add_array_item(source, item);                                                                                  \
     }
 
 #endif
