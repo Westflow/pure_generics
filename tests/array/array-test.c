@@ -76,3 +76,24 @@ CTEST(generic_array, clear)
     ASSERT_EQUAL(0, get_array_length(arr));
     free_array(arr);
 }
+
+CTEST(generic_array, remove)
+{
+    Array(long) arr = init_array(long, 1);
+    for (size_t i = 0; i < 10; ++i)
+    {
+        add_array(arr, i);
+        ASSERT_EQUAL(i + 1, get_array_length(arr));
+    }
+    ASSERT_EQUAL(16, get_array_capacity(arr));
+    ASSERT_EQUAL(10, get_array_length(arr));
+    remove_array(arr, 0);
+    for (size_t i = 0; i < get_array_length(arr); ++i)
+    {
+        ASSERT_EQUAL(i + 1, arr[i]);
+    }
+    remove_array(arr, get_array_length(arr) - 1);
+    ASSERT_EQUAL(8, arr[get_array_length(arr) - 1]);
+    ASSERT_EQUAL(8, get_array_length(arr));
+    free_array(arr);
+}

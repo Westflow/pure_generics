@@ -70,4 +70,16 @@ static inline bool is_array_full(Array(void) arr)
 
 #define clear_array(arr) clear_array_data((void**)&arr)
 
+#define remove_array(arr, index)                                                                                       \
+    {                                                                                                                  \
+        if (index < get_array_length(arr))                                                                             \
+        {                                                                                                              \
+            for (size_t i = index; i < get_array_length(arr) - 1; ++i)                                                 \
+            {                                                                                                          \
+                arr[i] = arr[i + 1];                                                                                   \
+            }                                                                                                          \
+            --((size_t*)(arr))[-1];                                                                                    \
+        }                                                                                                              \
+    }
+
 #endif
