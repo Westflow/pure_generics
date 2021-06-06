@@ -50,4 +50,20 @@ static inline bool is_array_full(Array(void) arr)
         }                                                                                                              \
     }
 
+#define search_array(arr, item, result)                                                                                \
+    {                                                                                                                  \
+        int left = 0, right = get_array_length(arr) - 1;                                                               \
+        result = -1;                                                                                                   \
+        while (left <= right)                                                                                          \
+        {                                                                                                              \
+            int mid = (int)(((unsigned)left + (unsigned)right) >> 1);                                                  \
+            if (arr[mid] == item)                                                                                      \
+            {                                                                                                          \
+                result = mid;                                                                                          \
+                break;                                                                                                 \
+            }                                                                                                          \
+            arr[mid] < item ? (left = mid + 1) : (right = mid - 1);                                                    \
+        }                                                                                                              \
+    }
+
 #endif

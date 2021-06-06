@@ -44,3 +44,19 @@ CTEST(generic_array, add_range)
     ASSERT_EQUAL(16, get_array_capacity(arr));
     free_array(arr);
 }
+
+CTEST(generic_array, search)
+{
+    Array(short) arr = init_array(short, 4);
+    short collection[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    add_range_array(arr, collection, sizeof(collection) / sizeof(short));
+    size_t result;
+    for (size_t i = 0; i < sizeof(collection) / sizeof(short); ++i)
+    {
+        search_array(arr, i, result);
+        ASSERT_EQUAL(i, result);
+    }
+    search_array(arr, 123, result);
+    ASSERT_EQUAL(-1, result);
+    free_array(arr);
+}
