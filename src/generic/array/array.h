@@ -14,6 +14,8 @@ size_t get_array_capacity(Array(void) arr);
 
 void expand_array(void** blockptr, size_t cur_cap, size_t cap);
 
+void clear_array_data(void** blockptr);
+
 void free_array(Array(void) arr);
 
 static inline bool is_array_full(Array(void) arr)
@@ -65,5 +67,7 @@ static inline bool is_array_full(Array(void) arr)
             arr[mid] < item ? (left = mid + 1) : (right = mid - 1);                                                    \
         }                                                                                                              \
     }
+
+#define clear_array(arr) clear_array_data((void**)&arr)
 
 #endif

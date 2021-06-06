@@ -60,3 +60,19 @@ CTEST(generic_array, search)
     ASSERT_EQUAL(-1, result);
     free_array(arr);
 }
+
+CTEST(generic_array, clear)
+{
+    Array(double) arr = init_array(double, 8);
+    for (size_t i = 0; i < 100; ++i)
+    {
+        add_array(arr, i);
+        ASSERT_EQUAL(i + 1, get_array_length(arr));
+    }
+    ASSERT_EQUAL(128, get_array_capacity(arr));
+    ASSERT_EQUAL(100, get_array_length(arr));
+    clear_array(arr);
+    ASSERT_EQUAL(128, get_array_capacity(arr));
+    ASSERT_EQUAL(0, get_array_length(arr));
+    free_array(arr);
+}

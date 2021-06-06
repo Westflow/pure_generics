@@ -46,3 +46,13 @@ void free_array(Array(void) arr)
 {
     (arr) ? (free(&((size_t*)(arr))[ARRAY_CAP_P])) : 0;
 }
+
+void clear_array_data(Array(void*) arr)
+{
+    size_t cap = get_array_capacity(*arr);
+    size_t* memblock = malloc(cap + sizeof(size_t) * 2);
+    free_array(*arr);
+    (*arr) = (void*)(&memblock[ARRAY_DATA_ST]);
+    ((size_t*)(*arr))[-2] = cap;
+    ((size_t*)(*arr))[-1] = 0;
+}
